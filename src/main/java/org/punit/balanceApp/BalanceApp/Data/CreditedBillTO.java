@@ -1,5 +1,8 @@
 package org.punit.balanceApp.BalanceApp.Data;
 
+import lombok.Data;
+
+@Data
 public class CreditedBillTO {
 	
 	
