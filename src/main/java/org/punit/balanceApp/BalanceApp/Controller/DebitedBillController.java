@@ -3,23 +3,28 @@ package org.punit.balanceApp.BalanceApp.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.Path;
-
 import org.punit.balanceApp.BalanceApp.Data.DebitedBillTO;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Path("Debited")
+@RequestMapping("debitedBill")
 public class DebitedBillController {
 	
-	@RequestMapping("/getDebiedBills/{custId}")
+	private static List<DebitedBillTO> debitedBillTOs = new ArrayList<>();
+	
+	@RequestMapping("getDebitedBills/{custId}")
 	public List<DebitedBillTO> getAllDebitedBillByCustId(@PathVariable int custId) {
-		 List<DebitedBillTO> debitedBillTOs = new ArrayList<>();
-		 DebitedBillTO debitedBillTO = new DebitedBillTO(1, "Somesh", "Agrawal", 12000, "05/06/2018");
-		 debitedBillTOs.add(debitedBillTO);
 		 return debitedBillTOs;
+	}
+	
+	@RequestMapping("addBill")
+	public void addDebitedBill(@RequestBody DebitedBillTO debitedBillTO) {
+		int size = debitedBillTOs.size();
+		debitedBillTO.setBillId(size+1);
+		debitedBillTOs.add(debitedBillTO);
 	}
 
 }
