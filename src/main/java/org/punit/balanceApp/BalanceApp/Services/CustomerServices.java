@@ -21,7 +21,7 @@ public class CustomerServices {
 		return (List<CustomerTO>) customerReposatory.findAll();
 	}
 	
-	public CustomerTO getCustomerById(int custId){
+	public Optional<CustomerTO> getCustomerById(int custId){
 		return customerReposatory.findById(custId);
 	}
 }
