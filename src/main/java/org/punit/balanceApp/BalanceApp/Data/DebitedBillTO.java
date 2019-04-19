@@ -1,18 +1,31 @@
 package org.punit.balanceApp.BalanceApp.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity(name = "Bill")
 public class DebitedBillTO {
 	
-	
+	@Id
+	@Column(name = "BillId")
 	private int billId;
+	@Column(name = "CustId")
 	private int custId;
+	@Column(name = "CustFName")
 	private String custFName;
+	@Column(name = "CustLName")
 	private String custLName;
+	@Column(name = "BillAmount")
 	private long billAmount;
+	@Column(name = "Billdate")
 	private String billDate;
+	@Column(name = "ClearDate")
 	private String billClearDate;
+	@Column(name = "ClearFlag")
 	private boolean clearFlag;
+	@Column(name = "DateCount")
 	private int dateCount;
-	
 	
 	public DebitedBillTO(int custId, String custFName, String custLName, long billAmount, String billdate) {
 		this.custId = custId;
