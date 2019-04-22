@@ -22,5 +22,4 @@ public class DebitedBillServices {
 	public List<DebitedBillTO> getAllBill(DebitedBillTO debitedBillTO) {
 		return (List<DebitedBillTO>) debitedBillReposatory.findAll();
 	}
-	
 }

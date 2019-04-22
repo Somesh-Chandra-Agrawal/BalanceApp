@@ -9,36 +9,39 @@ import javax.persistence.Id;
  * @author SOMESH
  */
 @Entity(name = "Customer")
-public class CustomerTO {
+public class CustomerTO{
 	
 	/** The cust id. */
 	@Id 
-	@Column (name = "CustId")
+	@Column (name = "CUSTID")
 	private int custId;
 	
 	/** The cust fname. */
-	@Column (name = "CustFName")
-	private String custFname;
+	@Column (name = "CUSTFNAME")
+	private String custFName;
 	
 	/** The cust L name. */
-	@Column (name = "CustLName")
+	@Column (name = "CUSTLNAME")
 	private String custLName;
 	
 	/** The city. */
-	@Column (name = "City")
+	@Column (name = "CITY")
 	private String city;
 	
 	/** The state. */
-	@Column (name = "State")
+	@Column (name = "STATE")
 	private String state;
 	
 	/** The contact. */
-	@Column (name = "Contact")
+	@Column (name = "CONTACT")
 	private String contact;
 	
 	/** The total due. */
-	@Column (name = "TotalDue")
+	@Column (name = "TOTALDUE")
 	private Long totalDue;
+	
+	public CustomerTO() {
+	}
 	
 	/**
 	 * Instantiates a new customer TO.
@@ -49,12 +52,13 @@ public class CustomerTO {
 	 * @param state the state
 	 * @param contact the contact
 	 */
-	public CustomerTO(String custFName, String custLName, String city, String state, String contact) {
-		this.custFname = custFName;
+	public CustomerTO(int custId, String custFName, String custLName, String city, String state, String contact) {
+		this.custFName = custFName;
 		this.custLName = custLName;
 		this.city = city;
 		this.state = state;
 		this.contact = contact;
+		this.custId = custId;
 	}
 
 
@@ -84,17 +88,17 @@ public class CustomerTO {
 	 * @return the cust fname
 	 */
 	public String getCustFname() {
-		return custFname;
+		return custFName;
 	}
 
 
 	/**
 	 * Sets the cust fname.
 	 *
-	 * @param custFname the new cust fname
+	 * @param custFName the new cust fname
 	 */
-	public void setCustFname(String custFname) {
-		this.custFname = custFname;
+	public void setCustFname(String custFName) {
+		this.custFName = custFName;
 	}
 
 
