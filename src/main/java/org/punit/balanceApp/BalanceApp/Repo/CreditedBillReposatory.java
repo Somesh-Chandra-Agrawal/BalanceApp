@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public interface CreditedBillReposatory extends CrudRepository<CreditedBillTO, Integer> {
 
-	@Query("SELECT BillId, CustId, CustFName, CustLName, CreditAmount, CreditedDate from CreditDetail where  custId = :custId")
+	/*@Query("SELECT cBillId, custId, custFName, custLName, creditAmount, creditedDate from CreditedBillTO where  custId = :custId")
 	List<CreditedBillTO> findAllByCustId(@PathVariable("custId") int custId);
-
+*/
 }

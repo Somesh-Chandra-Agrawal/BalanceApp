@@ -15,9 +15,9 @@ public class DebitedBillServices {
 		debitedBillReposatory.save(debitedBillTO);
 	}
 	
-	public List<DebitedBillTO> getAllBillByCustId(int custId) {
+	/*public List<DebitedBillTO> getAllBillByCustId(int custId) {
 		return debitedBillReposatory.findAllByCustId(custId);
-	}
+	}*/
 	
 	public List<DebitedBillTO> getAllBill(DebitedBillTO debitedBillTO) {
 		return (List<DebitedBillTO>) debitedBillReposatory.findAll();

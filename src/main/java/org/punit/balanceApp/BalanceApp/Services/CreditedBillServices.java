@@ -19,7 +19,7 @@ public class CreditedBillServices {
 		return (List<CreditedBillTO>) creditedBillReposatory.findAll();
 	}
 	
-	public List<CreditedBillTO> getAllCreditedBillByCustId(int custId) {
+	/*public List<CreditedBillTO> getAllCreditedBillByCustId(int custId) {
 		return creditedBillReposatory.findAllByCustId(custId);
-	}
+	}*/
 }

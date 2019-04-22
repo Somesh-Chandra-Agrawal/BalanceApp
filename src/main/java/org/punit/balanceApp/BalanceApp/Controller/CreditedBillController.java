@@ -23,10 +23,10 @@ public class CreditedBillController {
 		creditedBillServices.addCreditedBill(creditedBillTO);
 	}
 	
-	@RequestMapping("getCreditedBills/{custId}")
+	/*@RequestMapping("getCreditedBills/{custId}")
 	public List<CreditedBillTO> getCreditedBillsOfCustomer(@PathParam(value = "custId") int custId){
 		return creditedBillServices.getAllCreditedBillByCustId(custId);
-	}
+	}*/
 	
 	@RequestMapping("getCreditedBills")
 	public List<CreditedBillTO> getAllCreditedBills(){

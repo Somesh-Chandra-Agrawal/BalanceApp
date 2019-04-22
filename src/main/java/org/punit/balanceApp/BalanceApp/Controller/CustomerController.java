@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("customer")
+@RequestMapping("/customer")
 public class CustomerController {
 	
 	@Autowired
@@ -26,7 +26,7 @@ public class CustomerController {
 	
 	ResponseEntity<List<CustomerTO>> responses = null;
 	
-	@RequestMapping(method = RequestMethod.POST, value = "addCustomer", consumes = "application/json")
+	@RequestMapping(method = RequestMethod.POST, value = "/addCustomer", consumes = "application/json")
 	public ResponseEntity<CustomerTO> addCustomer(@RequestBody CustomerTO customerTO) {
 		CustomerTO addedCustomerTO = customerServices.addCustomer(customerTO);
 		if (addedCustomerTO != null ) {
