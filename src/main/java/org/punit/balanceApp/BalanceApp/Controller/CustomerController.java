@@ -3,15 +3,13 @@ package org.punit.balanceApp.BalanceApp.Controller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.websocket.server.PathParam;
-
 import org.punit.balanceApp.BalanceApp.Data.CustomerTO;
 import org.punit.balanceApp.BalanceApp.Services.CustomerServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/customer")
-@EnableAutoConfiguration
 public class CustomerController {
 	
 	@Autowired
@@ -46,10 +43,10 @@ public class CustomerController {
 		return responses = new ResponseEntity<List<CustomerTO>>(allCustomers, HttpStatus.OK);
 	}
 	
-	/*@RequestMapping(method = RequestMethod.GET, value = "/getCustomer/{custId}")
-	public ResponseEntity<Optional<CustomerTO>> getAllCustomerByCustId(@PathParam(value = "custId") int custId) {
+	@RequestMapping(method = RequestMethod.GET, value = "/getCustomer/{custId}")
+	public ResponseEntity<Optional<CustomerTO>> getAllCustomerByCustId(@PathVariable int custId) {
 		Optional<CustomerTO> customerTO = customerServices.getCustomerById(custId);
 		return new ResponseEntity<Optional<CustomerTO>>(customerTO, HttpStatus.OK);
-	}*/
+	}
 
 }

@@ -16,7 +16,7 @@ public class CustomerTO{
 	@Column (name = "CUSTID")
 	private int custId;
 	
-	/** The cust fname. */
+	/** The cust F name. */
 	@Column (name = "CUSTFNAME")
 	private String custFName;
 	
@@ -87,7 +87,7 @@ public class CustomerTO{
 	 *
 	 * @return the cust fname
 	 */
-	public String getCustFname() {
+	public String getCustFName() {
 		return custFName;
 	}
 
@@ -97,7 +97,7 @@ public class CustomerTO{
 	 *
 	 * @param custFName the new cust fname
 	 */
-	public void setCustFname(String custFName) {
+	public void setCustFName(String custFName) {
 		this.custFName = custFName;
 	}
 

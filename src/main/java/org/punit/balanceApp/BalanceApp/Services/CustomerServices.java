@@ -25,6 +25,6 @@ public class CustomerServices {
 	}
 	
 	public Optional<CustomerTO> getCustomerById(int custId){
-		return null;//customerReposatory.findById(custId);
+		return customerReposatory.findById(custId);
 	}
 }

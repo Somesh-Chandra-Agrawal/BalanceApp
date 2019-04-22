@@ -5,11 +5,13 @@ import java.util.List;
 import org.punit.balanceApp.BalanceApp.Data.CreditedBillTO;
 import org.punit.balanceApp.BalanceApp.Repo.CreditedBillReposatory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreditedBillServices {
 	
 	@Autowired
-	private CreditedBillReposatory creditedBillReposatory;
+	CreditedBillReposatory creditedBillReposatory;
 
 	public void addCreditedBill(CreditedBillTO creditedBillTO) {
 		creditedBillReposatory.save(creditedBillTO);

@@ -7,19 +7,22 @@ import javax.persistence.Id;
 @Entity(name = "CreditDetail")
 public class CreditedBillTO {
 	
-	@Column(name = "BillId")
 	@Id
+	@Column(name = "BILLID")
 	private int cBillId; 
-	@Column(name = "CustId")
+	@Column(name = "CUSTID")
 	private int custId;
-	@Column(name = "CustFName")
+	@Column(name = "CUSTFNAME")
 	private String custFName;
-	@Column(name = "CustLName")
+	@Column(name = "CUSTLNAME")
 	private String custLName;
-	@Column(name = "CreditAmount")
+	@Column(name = "CREDITAMOUNT")
 	private long creditAmount;
-	@Column(name = "CreditedDate")
+	@Column(name = "CREDITEDDATE")
 	private String creditDate;
+	
+	public CreditedBillTO() {
+	}
 	
 	public CreditedBillTO(int custId, String custFName, String custLName, long creditAmount, String creditdate) {
 		this.custId = custId;

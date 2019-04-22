@@ -8,26 +8,30 @@ import javax.persistence.Id;
 public class DebitedBillTO {
 	
 	@Id
-	@Column(name = "BillId")
+	@Column(name = "BILLID")
 	private int billId;
-	@Column(name = "CustId")
+	@Column(name = "CUSTID")
 	private int custId;
-	@Column(name = "CustFName")
+	@Column(name = "CUSTFNAME")
 	private String custFName;
-	@Column(name = "CustLName")
+	@Column(name = "CUSTLNAME")
 	private String custLName;
-	@Column(name = "BillAmount")
+	@Column(name = "BILLAMOUNT")
 	private long billAmount;
-	@Column(name = "Billdate")
+	@Column(name = "BILLDATE")
 	private String billDate;
-	@Column(name = "ClearDate")
+	@Column(name = "CLEARDATE")
 	private String billClearDate;
-	@Column(name = "ClearFlag")
+	@Column(name = "CLEARFLAG")
 	private boolean clearFlag;
-	@Column(name = "DateCount")
+	@Column(name = "DATECOUNT")
 	private int dateCount;
 	
-	public DebitedBillTO(int custId, String custFName, String custLName, long billAmount, String billdate) {
+	public DebitedBillTO() {
+	}
+	
+	public DebitedBillTO(int billId, int custId, String custFName, String custLName, long billAmount, String billdate) {
+		this.billId = billId;
 		this.custId = custId;
 		this.custFName = custFName;
 		this.custLName = custLName;
