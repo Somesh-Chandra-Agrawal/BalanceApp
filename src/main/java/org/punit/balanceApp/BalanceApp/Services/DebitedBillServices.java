@@ -25,6 +25,7 @@ public class DebitedBillServices {
 	
 	@Transactional
 	public void addDebitedBill(Bill debitedBillTO) {
+		debitedBillTO.setDue(debitedBillTO.getBillAmount());
 		debitedBillRepository.save(debitedBillTO);
 		customerRepository.updateTotalDue(Long.valueOf(debitedBillTO.getBillAmount()), debitedBillTO.getCustId());
 	}

@@ -16,7 +16,7 @@ public class Bill {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BILL_SEQ" )
-    @SequenceGenerator(sequenceName = "DebitBill_Id_Seq", allocationSize = 1, name = "BILL_SEQ")
+    @SequenceGenerator(sequenceName = "DEBITBILL_ID_SEQ", allocationSize = 1, name = "BILL_SEQ")
 	@Column(name = "BILLID")
 	private Integer billId;
 	@Column(name = "CUSTID")

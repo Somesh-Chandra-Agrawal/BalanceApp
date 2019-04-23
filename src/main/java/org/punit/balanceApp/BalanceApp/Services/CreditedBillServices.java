@@ -1,6 +1,7 @@
 package org.punit.balanceApp.BalanceApp.Services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +11,7 @@ import org.punit.balanceApp.BalanceApp.Data.CreditedBillTO;
 import org.punit.balanceApp.BalanceApp.Repo.CreditedBillReposatory;
 import org.punit.balanceApp.BalanceApp.Repo.CreditedBillRepositoryImpl;
 import org.punit.balanceApp.BalanceApp.Repo.CustomerRepository;
+import org.punit.balanceApp.BalanceApp.Repo.DebitedBillRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +26,19 @@ public class CreditedBillServices {
 	
 	@Autowired
 	CreditedBillRepositoryImpl creditedBillRepositoryImpl;
+	
+	@Autowired
+	DebitedBillRepositoryImpl debitedBillRepository;
 
 	@Transactional
 	public void addCreditedBill(CreditedBillTO creditedBillTO) {
 		creditedBillReposatory.save(creditedBillTO);
-		customerRepository.updateTotalBillByCustId(creditedBillTO.getCreditAmount(), creditedBillTO.getCustId());
-		
+		customerRepository.updateTotalBillByCustId(Long.valueOf(creditedBillTO.getCreditAmount()), creditedBillTO.getCustId());
+		maintainDebitedBill(creditedBillTO);
+	}
+
+	private void maintainDebitedBill(CreditedBillTO creditedBillTO) {
+		debitedBillRepository.maintainDebitedBill(creditedBillTO);
 	}
 
 	public List<CreditedBillTO> getAllCreditedBill() {

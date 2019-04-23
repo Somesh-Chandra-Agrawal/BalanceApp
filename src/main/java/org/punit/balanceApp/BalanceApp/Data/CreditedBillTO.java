@@ -1,5 +1,9 @@
 package org.punit.balanceApp.BalanceApp.Data;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +17,7 @@ public class CreditedBillTO {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CBILL_SEQ" )
-    @SequenceGenerator(sequenceName = "CreditBill_Id_Seq", allocationSize = 1, name = "CBILL_SEQ")
+    @SequenceGenerator(sequenceName = "CREDITBILL_ID_SEQ", allocationSize = 1, name = "CBILL_SEQ")
 	@Column(name = "BILLID")
 	private Integer cBillId; 
 	@Column(name = "CUSTID")
@@ -23,14 +27,14 @@ public class CreditedBillTO {
 	@Column(name = "CUSTLNAME")
 	private String custLName;
 	@Column(name = "CREDITAMOUNT")
-	private Long creditAmount;
+	private Integer creditAmount;
 	@Column(name = "CREDITEDDATE")
-	private String creditDate;
+	private Date creditDate;
 	
 	public CreditedBillTO() {
 	}
 	
-	public CreditedBillTO(Integer custId, String custFName, String custLName, Long creditAmount, String creditdate) {
+	public CreditedBillTO(Integer custId, String custFName, String custLName, Integer creditAmount, Date creditdate) {
 		this.custId = custId;
 		this.custFName = custFName;
 		this.custLName = custLName;
@@ -38,7 +42,7 @@ public class CreditedBillTO {
 		this.creditDate = creditdate;
 	}
 	
-	public CreditedBillTO(Integer cBillId, Integer custId, String custFName, String custLName, Long creditAmount, String creditdate) {
+	public CreditedBillTO(Integer cBillId, Integer custId, String custFName, String custLName, Integer creditAmount, Date creditdate) {
 		this.cBillId = cBillId;
 		this.custId = custId;
 		this.custFName = custFName;
@@ -79,20 +83,22 @@ public class CreditedBillTO {
 		this.custLName = custLName;
 	}
 
-	public Long getCreditAmount() {
+	public Integer getCreditAmount() {
 		return creditAmount;
 	}
 
-	public void setCreditAmount(Long creditAmount) {
+	public void setCreditAmount(Integer creditAmount) {
 		this.creditAmount = creditAmount;
 	}
 
-	public String getCreditDate() {
+	public Date getCreditDate() {
 		return creditDate;
 	}
 
-	public void setCreditDate(String creditDate) {
-		this.creditDate = creditDate;
+	public void setCreditDate(String creditDate) throws ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		Date date = formatter.parse(creditDate);
+		this.creditDate = date;
 	}
 	
 }
