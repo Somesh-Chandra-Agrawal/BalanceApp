@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("creditedBill")
+@RequestMapping("/creditedBill")
 @Component
 public class CreditedBillController {
 	
 	@Autowired
 	CreditedBillServices creditedBillServices;
 	
-	@RequestMapping("addCreditedBill")
+	@RequestMapping("/addCreditedBill")
 	public void addCreditedBill(@RequestBody CreditedBillTO creditedBillTO) {
 		creditedBillServices.addCreditedBill(creditedBillTO);
 	}
 	
-	/*@RequestMapping("getCreditedBills/{custId}")
+	@RequestMapping("/getCreditedBills/{custId}")
 	public List<CreditedBillTO> getCreditedBillsOfCustomer(@PathVariable int custId){
 		return creditedBillServices.getAllCreditedBillByCustId(custId);
-	}*/
+	}
 	
-	@RequestMapping("getCreditedBills")
+	@RequestMapping("/getCreditedBills")
 	public List<CreditedBillTO> getAllCreditedBills(){
 		return creditedBillServices.getAllCreditedBill();
 	}
