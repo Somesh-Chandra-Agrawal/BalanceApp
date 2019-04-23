@@ -2,7 +2,10 @@ package org.punit.balanceApp.BalanceApp.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 /**
  * The Class CustomerTO.
@@ -14,6 +17,8 @@ public class CustomerTO{
 	/** The cust id. */
 	@Id 
 	@Column (name = "CUSTID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUST_SEQ" )
+    @SequenceGenerator(sequenceName = "Customer_Id_Seq", allocationSize = 1, name = "CUST_SEQ")
 	private int custId;
 	
 	/** The cust F name. */
@@ -52,13 +57,12 @@ public class CustomerTO{
 	 * @param state the state
 	 * @param contact the contact
 	 */
-	public CustomerTO(int custId, String custFName, String custLName, String city, String state, String contact) {
+	public CustomerTO(String custFName, String custLName, String city, String state, String contact) {
 		this.custFName = custFName;
 		this.custLName = custLName;
 		this.city = city;
 		this.state = state;
 		this.contact = contact;
-		this.custId = custId;
 	}
 
 

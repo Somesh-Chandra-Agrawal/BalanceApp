@@ -2,13 +2,18 @@ package org.punit.balanceApp.BalanceApp.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity(name = "CREDITDETAIL")
 public class CreditedBillTO {
 	
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CBILL_SEQ" )
+    @SequenceGenerator(sequenceName = "CreditBill_Id_Seq", allocationSize = 1, name = "CBILL_SEQ")
 	@Column(name = "BILLID")
 	private Integer cBillId; 
 	@Column(name = "CUSTID")

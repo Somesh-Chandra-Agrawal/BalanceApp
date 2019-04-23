@@ -6,12 +6,17 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity(name = "Bill")
 public class Bill {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BILL_SEQ" )
+    @SequenceGenerator(sequenceName = "DebitBill_Id_Seq", allocationSize = 1, name = "BILL_SEQ")
 	@Column(name = "BILLID")
 	private Integer billId;
 	@Column(name = "CUSTID")
@@ -36,8 +41,7 @@ public class Bill {
 	public Bill() {
 	}
 
-	public Bill(Integer billId, Integer custId, String custFName, String custLName, Integer billAmount, Date billdate) {
-		this.billId = billId;
+	public Bill(Integer custId, String custFName, String custLName, Integer billAmount, Date billdate) {
 		this.custId = custId;
 		this.custFName = custFName;
 		this.custLName = custLName;
