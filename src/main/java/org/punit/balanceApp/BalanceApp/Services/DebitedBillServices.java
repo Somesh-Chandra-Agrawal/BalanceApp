@@ -30,17 +30,6 @@ public class DebitedBillServices {
 		customerRepository.updateTotalDue(Long.valueOf(debitedBillTO.getBillAmount()), debitedBillTO.getCustId());
 	}
 	
-	/*public List<DebitedBillTO> getAllBillByCustId(int custId) {
-		List<DebitedBillTO> allBils = (List<DebitedBillTO>) debitedBillReposatory.findAll();
-		List<DebitedBillTO> billsByCustId = new ArrayList<>();
-		 allBils.forEach(bill ->{
-			if(bill.getCustId()==custId) {
-				billsByCustId.add(bill);
-			}
-		});
-		 return billsByCustId;
-	}*/
-	
 	public List<Bill> getAllBillByCustId(Integer custId) {
 		List<Bill> bills= debitedBillRepositoryImpl.getBillsByCustId(custId);
 		return bills;

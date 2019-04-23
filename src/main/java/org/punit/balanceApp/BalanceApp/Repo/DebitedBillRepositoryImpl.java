@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import org.punit.balanceApp.BalanceApp.Data.Bill;
 import org.punit.balanceApp.BalanceApp.Data.CreditedBillTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,9 @@ public class DebitedBillRepositoryImpl {
 
 	@PersistenceContext
 	EntityManager entityManager;
+	
+	@Autowired
+	DebitedBillRepository debitedBillRepository;
 
 	public List<Bill> getBillsByCustId(Integer custId) {
 
@@ -57,8 +61,7 @@ public class DebitedBillRepositoryImpl {
 				Integer dayDiff = getDateDiff(cDate, pendingFBill.getBillDate(), TimeUnit.DAYS);
 				pendingFBill.setDateCount(dayDiff);
 				// call method for Update Bill
-				
-				
+				debitedBillRepository.save(pendingFBill);
 				amount = amount - pendingFBill.getBillAmount();
 			} else {
 				//pendingFBill.setBillClearDate(cDate);
@@ -66,13 +69,10 @@ public class DebitedBillRepositoryImpl {
 				pendingFBill.setDue(due);
 				pendingFBill.setClearFlag("F");
 				// call method to update bill
-				
-				
+				debitedBillRepository.save(pendingFBill);
 				break;
 			}
 		}
-		
-
 	}
 	
 	public static Integer getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {

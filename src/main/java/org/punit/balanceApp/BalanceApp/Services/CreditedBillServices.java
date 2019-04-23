@@ -1,12 +1,9 @@
 package org.punit.balanceApp.BalanceApp.Services;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.punit.balanceApp.BalanceApp.Data.Bill;
 import org.punit.balanceApp.BalanceApp.Data.CreditedBillTO;
 import org.punit.balanceApp.BalanceApp.Repo.CreditedBillReposatory;
 import org.punit.balanceApp.BalanceApp.Repo.CreditedBillRepositoryImpl;
@@ -49,18 +46,5 @@ public class CreditedBillServices {
 		List<CreditedBillTO> bills = creditedBillRepositoryImpl.getBillsByCustId(custId);
 		return bills;
 	}
-	
-	/*public List<CreditedBillTO> getAllCreditedBillByCustId(int custId) {
-		 List<CreditedBillTO> allBills = (List<CreditedBillTO>) creditedBillReposatory.findAll();
-		 List<CreditedBillTO> billByCustId = new ArrayList<>();
-		 allBills.forEach(bill ->{
-			 if (bill.getCustId() == custId) {
-				 billByCustId.add(bill);
-			 }
-		 });
-		 return billByCustId;
-	}*/
-	
-	
 	
 }
