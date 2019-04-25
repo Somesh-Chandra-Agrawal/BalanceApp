@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    </head>
+	<body>
+		<h1 >BalanceApp</h1>
+	   <button id="allcustomer" onclick="getAllCustomer()">GET ALL CUSTOMER</button>
+	    <button><a th:href="@{/customer/addCustomer}"></a>DEBITED BILLS</button>
+	     <button><a th:href="@{/customer/addCustomer}">CREDITED BILLS</a></button>
+	</body>
+	
+	<script type="text/javascript">
+	/*<![CDATA[*/
+	function getAllCustomer(){
+		alert("getAllCustomer");
+		$.ajax({
+			type : "GET",
+			url : '/BalanceApp/customer/getAllCustomer',
+			success: function(result){
+				alert("Success: ", result);
+				console.log("Success: ", result);
+			}
+		});	
+		alert("getAllCustomerEnd");
+	}
+	/*]]>*/
+	</script>
+</html>
