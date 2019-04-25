@@ -9,6 +9,8 @@ import org.punit.balanceApp.BalanceApp.Repo.CustomerRepository;
 import org.punit.balanceApp.BalanceApp.Repo.DebitedBillRepository;
 import org.punit.balanceApp.BalanceApp.Repo.DebitedBillRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +23,7 @@ public class DebitedBillServices {
 	CustomerRepository customerRepository;
 	
 	@Autowired
+
 	DebitedBillRepositoryImpl debitedBillRepositoryImpl;
 	
 	@Transactional

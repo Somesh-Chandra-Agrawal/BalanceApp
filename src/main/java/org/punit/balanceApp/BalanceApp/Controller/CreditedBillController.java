@@ -6,10 +6,12 @@ import org.punit.balanceApp.BalanceApp.Data.CreditedBillTO;
 import org.punit.balanceApp.BalanceApp.Services.CreditedBillServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/creditedBill")
@@ -33,4 +35,12 @@ public class CreditedBillController {
 	public List<CreditedBillTO> getAllCreditedBills(){
 		return creditedBillServices.getAllCreditedBill();
 	}
+	
+	@GetMapping("/home")
+  public ModelAndView createUserView() {
+      ModelAndView mav = new ModelAndView();
+      mav.setViewName("home");
+      return mav;
+    }
+	
 }
