@@ -49,18 +49,18 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.oracle</groupId> -->
+<!-- 			<artifactId>ojdbc6</artifactId> -->
+<!-- 			<version>11.2.0</version> -->
+<!-- 		</dependency> -->
 
 
  <!-- H2 Database -->
-<!--  <dependency> -->
-<!--  <groupId>com.h2database</groupId> -->
-<!--  <artifactId>h2</artifactId> -->
-<!--  </dependency> -->
+ <dependency>
+ <groupId>com.h2database</groupId>
+ <artifactId>h2</artifactId>
+ </dependency>
  
  <!-- UI Thymleaf -->
  <dependency>

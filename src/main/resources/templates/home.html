@@ -5,25 +5,69 @@
     </head>
 	<body>
 		<h1 >BalanceApp</h1>
-	   <button id="allcustomer" onclick="getAllCustomer()">GET ALL CUSTOMER</button>
+	   <button id="allcustomer" >GET ALL CUSTOMER</button>
 	    <button><a th:href="@{/customer/addCustomer}"></a>DEBITED BILLS</button>
 	     <button><a th:href="@{/customer/addCustomer}">CREDITED BILLS</a></button>
+	     <table id="CustDatatable"/></div>
 	</body>
-	
-	<script type="text/javascript">
+	<script
+  src = "https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity = "sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin = "anonymous"></script>
+  
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script> 
+<script type="text/javascript">
 	/*<![CDATA[*/
-	function getAllCustomer(){
-		alert("getAllCustomer");
+		$('#allcustomer').click(function(e) {
+		e.preventDefault(); 
+// 		alert("getAllCustomer");
 		$.ajax({
 			type : "GET",
 			url : '/BalanceApp/customer/getAllCustomer',
 			success: function(result){
-				alert("Success: ", result);
+
+				console.log("Success: ", result[0].custFName);
 				console.log("Success: ", result);
+				var dataArr = [];
+				  $.each(result, function (key, value) {
+					  var dataArray = [];
+					  dataArray.push(value.custId);
+				        dataArray.push(value.custFName);
+				        dataArray.push(value.custLName);
+				        dataArray.push(value.city);
+				        dataArray.push(value.state);
+				        dataArray.push(value.contact);
+				        dataArray.push(value.totalDue);
+				        dataArr.push(dataArray);
+				        console.log(dataArray);
+				        
+				  });
+				  getTable(dataArr);
 			}
 		});	
-		alert("getAllCustomerEnd");
+
+		
+// 		alert("getAllCustomerEnd");
+		});	
+	
+	function getTable(dataArr) {
+	    $('#CustDatatable').DataTable({
+	    	destroy: true,
+	        data: dataArr,
+	        columns: [
+	        	{ title: "Id" },
+	            { title: "Fist Name" },
+	            { title: "Last Name" },
+	            { title: "city" },
+	            { title: "State" },
+	            { title: "contact" },
+	            { title: "TotalDue" }
+	        ]
+	    });
 	}
 	/*]]>*/
 	</script>
+	
 </html>
