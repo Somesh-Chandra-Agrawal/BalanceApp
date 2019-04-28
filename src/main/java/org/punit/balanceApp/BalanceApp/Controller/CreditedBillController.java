@@ -1,5 +1,6 @@
 package org.punit.balanceApp.BalanceApp.Controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.punit.balanceApp.BalanceApp.Data.CreditedBillTO;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
@@ -22,7 +24,17 @@ public class CreditedBillController {
 	CreditedBillServices creditedBillServices;
 	
 	@RequestMapping("/addCreditedBill")
-	public void addCreditedBill(@RequestBody CreditedBillTO creditedBillTO) {
+	public void addCreditedBill(WebRequest request) {
+	CreditedBillTO creditedBillTO=new CreditedBillTO();
+//	custFName=hello&custLName=srio&creditAmount=1000&creditDate=24-10-1990
+	creditedBillTO.setCustFName(request.getParameter("custFName"));
+	creditedBillTO.setCustLName(request.getParameter("custFName"));
+	creditedBillTO.setCreditAmount(Integer.parseInt(request.getParameter("creditAmount")));
+	try {
+		creditedBillTO.setCreditDate(request.getParameter("creditDate"));
+	} catch (ParseException e) {
+		e.printStackTrace();
+	}
 		creditedBillServices.addCreditedBill(creditedBillTO);
 	}
 	
@@ -42,5 +54,7 @@ public class CreditedBillController {
       mav.setViewName("home");
       return mav;
     }
+	
+
 	
 }
