@@ -55,6 +55,11 @@
 			<label>Contact :</label><input type="text" th:field="*{contact}" class="form-control" /> 
 			<label th:if="${#fields.hasErrors('contact')}" th:text="#{error.contact}" th:class="'error'">Id Error</label>
      </div>
+     
+     	<div class="col-md-6 form-group">
+			<label>Total Due :</label><input type="text" th:field="*{totalDue}" class="form-control" /> 
+			<label th:if="${#fields.hasErrors('totalDue')}" th:text="#{error.totalDue}" th:class="'error'">Id Error</label>
+     </div>
 				<div class="col-md-12" style="margin-left: 49em;">
 						<button id="add" class="btn btn-primary" >add</button>
 				</div>

@@ -26,10 +26,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
-	<body>
+	<body onload="onLoadEvents()">
 		<h1 >BalanceApp</h1>
-	   <button id="allcustomer" class="btn btn-primary" >GET ALL CUSTOMER</button>
+	   <button id="allcustomer" class="btn btn-primary" onclick="getAllCustomer()">GET ALL CUSTOMER</button>
 	     <button id="addCustomer" class="btn btn-primary"  >Add Customer</button>
+	     <div id="successMsg" style="margin-left: 43em;"></div>
 	     <table class="table table-striped table-hover" style="width: 1420px;" id="CustDatatable"/></div>
 	     
 	      <!-- Modal -->
@@ -44,7 +45,7 @@
         </div>
   <form action="">
         <div class="modal-body">
-        
+        	<input id="custIdModelData" type="hidden">
         <div class="col-md-6 form-group">
 			<label>custFName:</label><input type="text"  id="custFName" name="custFName"  class="form-control"/>
 			</div>
@@ -68,7 +69,7 @@
         </form>
 				<div class="modal-footer">
             <button  id="addCredit" type="button" class="btn btn-primary"  onclick="addCreditBil()">add</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id="closeModel" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
       
@@ -86,9 +87,11 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script> 
 <script type="text/javascript">
 	/*<![CDATA[*/
-		$('#allcustomer').click(function(e) {
-		e.preventDefault(); 
+		
+// 		$('#allcustomer').click(function(e) {
+// 		e.preventDefault(); 
 // 		alert("getAllCustomer");
+ function  getAllCustomer(){
 		$.ajax({
 			type : "GET",
 			url : '/BalanceApp/customer/getAllCustomer',
@@ -106,7 +109,7 @@
 				        dataArray.push(value.state);
 				        dataArray.push(value.contact);
 				        dataArray.push(value.totalDue);
-				        dataArray.push("<div class=\"btn-group\" style=\"margin-left: 6em;\"><button data-toggle=\"modal\" data-target=\"#myModal\" class=\"btn btn-warning\"  >Credited Bill</button><button id=\"addCustomer\" class=\"btn btn-danger\"  >Debited Bill</button></div>")
+				        dataArray.push("<div class=\"btn-group\" style=\"margin-left: 6em;\"><button data-toggle=\"modal\" data-target=\"#myModal\" class=\"btn btn-warning\" onclick=\"getRowData(),getClearUnwantedField()\" >Credited Bill</button><button id=\"addCustomer\" class=\"btn btn-danger\"  >Debited Bill</button></div>")
 				        dataArr.push(dataArray);
 				        console.log(dataArray);
 				        
@@ -115,9 +118,9 @@
 			}
 		});	
 
-		
+ }
 // 		alert("getAllCustomerEnd");
-		});	
+// 		});	
 	
 	function getTable(dataArr) {
 	    $('#CustDatatable').DataTable({
@@ -145,14 +148,19 @@
 	function addCreditBil(){
 		console.log("serialize:-->>"+$("form").serialize());
 		var serializeObject=$("form").serialize();
-		
+		var custIdModelData=$("#custIdModelData").val();
 		console.log("serialize:-object->>"+serializeObject);
-		var urlForBill='/BalanceApp/creditedBill/addCreditedBill?'+serializeObject;
+		var urlForBill='/BalanceApp/creditedBill/addCreditedBill?'+serializeObject+'&custId='+custIdModelData;
+		console.log("url->>"+urlForBill);
 		$.ajax({
 			type : "GET",
 			url :urlForBill ,
 			success: function(result){
-alert("credited bill called");
+// alert("credited bill called");
+// alert(result);
+$('#successMsg').html(result);
+$('#closeModel').click();
+getAllCustomer();
 // 				console.log("Success: ", result[0].custFName);
 // 				console.log("Success: ", result);
 				
@@ -160,6 +168,30 @@ alert("credited bill called");
 				  }
 			});
 		}
+	
+	function getRowData(){
+	console.log("getRowData");
+
+	  var table = $('#CustDatatable').DataTable();
+	    $('#CustDatatable tbody').on('click', 'tr', function () {
+	    	$("#custIdModelData").val(table.row(this).data()[0]);
+	    	$('#custFName').val(table.row(this).data()[1]);
+	    	$('#custLName').val(table.row(this).data()[2]);
+	    });
+	}
+	
+	function onLoadEvents(){
+		console.log("onLoadEvents");
+		$("#custIdModelData").val("");
+    	$('#custFName').val("");
+    	$('#custLName').val("");
+	}
+	
+	function getClearUnwantedField(){
+		$("#creditDate").val("");
+    	$('#creditAmount').val("");
+		
+	}
 	
 	/*]]>*/
 	</script>

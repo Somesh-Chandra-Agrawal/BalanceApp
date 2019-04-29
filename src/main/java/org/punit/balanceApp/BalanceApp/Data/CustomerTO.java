@@ -49,6 +49,7 @@ public class CustomerTO{
 	
 	/** The total due. */
 	@Column (name = "TOTALDUE")
+	@NotNull
 	private Long totalDue;
 	
 	public CustomerTO() {

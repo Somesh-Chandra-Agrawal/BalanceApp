@@ -28,10 +28,11 @@ public class CreditedBillServices {
 	//DebitedBillRepositoryImpl debitedBillRepository;
 
 	@Transactional
-	public void addCreditedBill(CreditedBillTO creditedBillTO) {
-		creditedBillReposatory.save(creditedBillTO);
+	public String addCreditedBill(CreditedBillTO creditedBillTO) {
+		String billId= creditedBillReposatory.save(creditedBillTO).getcBillId().toString();
 		customerRepository.updateTotalBillByCustId(Long.valueOf(creditedBillTO.getCreditAmount()), creditedBillTO.getCustId());
 		maintainDebitedBill(creditedBillTO);
+    return billId;
 	}
 
 	private void maintainDebitedBill(CreditedBillTO creditedBillTO) {
