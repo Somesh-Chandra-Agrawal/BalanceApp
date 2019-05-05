@@ -27,6 +27,7 @@ public class DebitedBillServices {
 	@Transactional
 	public String addDebitedBill(Bill debitedBillTO) {
 		debitedBillTO.setDue(debitedBillTO.getBillAmount());
+		debitedBillTO.setClearFlag("F");
 		String billId=debitedBillRepository.save(debitedBillTO).getBillId().toString();
 		customerRepository.updateTotalDue(Long.valueOf(debitedBillTO.getBillAmount()), debitedBillTO.getCustId());
     return billId;

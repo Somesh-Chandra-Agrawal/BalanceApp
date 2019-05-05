@@ -24,8 +24,8 @@ public class CreditedBillServices {
 	@Autowired
 	CreditedBillRepositoryImpl creditedBillRepositoryImpl;
 	
-	//@Autowired
-	//DebitedBillRepositoryImpl debitedBillRepository;
+	@Autowired
+	DebitedBillRepositoryImpl debitedBillRepository;
 
 	@Transactional
 	public String addCreditedBill(CreditedBillTO creditedBillTO) {
@@ -36,7 +36,7 @@ public class CreditedBillServices {
 	}
 
 	private void maintainDebitedBill(CreditedBillTO creditedBillTO) {
-		//debitedBillRepository.maintainDebitedBill(creditedBillTO);
+		debitedBillRepository.maintainDebitedBill(creditedBillTO);
 	}
 
 	public List<CreditedBillTO> getAllCreditedBill() {

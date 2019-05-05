@@ -55,7 +55,7 @@ public class DebitedBillRepositoryImpl {
 		List<Bill> postDTOs = query.getResultList();
 		
 		for (Bill pendingFBill : postDTOs) {
-			if (amount > pendingFBill.getDue()) {
+			if (amount >= pendingFBill.getDue()) {
 				pendingFBill.setBillClearDate(cDate);
 				pendingFBill.setDue(0);
 				pendingFBill.setClearFlag("T");
@@ -63,10 +63,10 @@ public class DebitedBillRepositoryImpl {
 				pendingFBill.setDateCount(dayDiff);
 				// call method for Update Bill
 				debitedBillRepository.save(pendingFBill);
-				amount = amount - pendingFBill.getBillAmount();
+				amount = amount - pendingFBill.getDue();
 			} else {
 				//pendingFBill.setBillClearDate(cDate);
-				Integer due = amount - pendingFBill.getBillAmount();
+				Integer due = pendingFBill.getDue() - amount;
 				pendingFBill.setDue(due);
 				pendingFBill.setClearFlag("F");
 				// call method to update bill
