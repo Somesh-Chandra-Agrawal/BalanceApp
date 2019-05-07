@@ -11,11 +11,12 @@ import javax.persistence.Query;
 import org.punit.balanceApp.BalanceApp.Data.Bill;
 import org.punit.balanceApp.BalanceApp.Data.CreditedBillTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository
+@Component
 public class DebitedBillRepositoryImpl {
 
 	@PersistenceContext

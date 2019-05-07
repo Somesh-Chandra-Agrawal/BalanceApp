@@ -65,7 +65,7 @@ public class Bill {
 	}
 
 	public void setBillDate(String billDate) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		Date date = formatter.parse(billDate);
 		this.billDate = date;
 	}
@@ -75,7 +75,7 @@ public class Bill {
 	}
 
 	public void setBillClearDate(String billClearDate) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		Date date = formatter.parse(billClearDate);
 		this.billClearDate = date;
 	}

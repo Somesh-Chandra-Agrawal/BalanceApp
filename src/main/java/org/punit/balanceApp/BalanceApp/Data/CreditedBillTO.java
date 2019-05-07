@@ -96,7 +96,7 @@ public class CreditedBillTO {
 	}
 
 	public void setCreditDate(String creditDate) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		Date date = formatter.parse(creditDate);
 		this.creditDate = date;
 	}

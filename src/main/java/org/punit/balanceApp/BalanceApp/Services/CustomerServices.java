@@ -15,7 +15,6 @@ public class CustomerServices {
 	CustomerRepository customerReposatory;
 	
 	public CustomerTO addCustomer(CustomerTO customerTO) {
-		customerTO.setTotalDue(80000L);
 		CustomerTO addedCustomer = customerReposatory.save(customerTO);
 		return addedCustomer;
 	}

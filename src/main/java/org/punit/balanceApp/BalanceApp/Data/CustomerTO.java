@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.UniqueElements;
 
 /**
  * The Class CustomerTO.
@@ -23,6 +27,8 @@ public class CustomerTO{
 	
 	/** The cust F name. */
 	@Column (name = "CUSTFNAME")
+	@NotNull
+    @Size(min=2, max=30)
 	private String custFName;
 	
 	/** The cust L name. */
@@ -43,6 +49,7 @@ public class CustomerTO{
 	
 	/** The total due. */
 	@Column (name = "TOTALDUE")
+	@NotNull
 	private Long totalDue;
 	
 	public CustomerTO() {

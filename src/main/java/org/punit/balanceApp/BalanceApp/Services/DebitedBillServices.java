@@ -21,13 +21,15 @@ public class DebitedBillServices {
 	CustomerRepository customerRepository;
 	
 	@Autowired
+
 	DebitedBillRepositoryImpl debitedBillRepositoryImpl;
 	
 	@Transactional
-	public void addDebitedBill(Bill debitedBillTO) {
+	public String addDebitedBill(Bill debitedBillTO) {
 		debitedBillTO.setDue(debitedBillTO.getBillAmount());
-		debitedBillRepository.save(debitedBillTO);
+		String billId=debitedBillRepository.save(debitedBillTO).getBillId().toString();
 		customerRepository.updateTotalDue(Long.valueOf(debitedBillTO.getBillAmount()), debitedBillTO.getCustId());
+    return billId;
 	}
 	
 	public List<Bill> getAllBillByCustId(Integer custId) {
