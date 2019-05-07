@@ -37,9 +37,9 @@ public class DebitedBillController {
 	  debitedBillTO.setCustLName(request.getParameter("custLNameDebit"));
 	  debitedBillTO.setBillAmount(Integer.parseInt(request.getParameter("billAmount")));
 	  debitedBillTO.setBillDate(request.getParameter("billDate"));
-	  debitedBillTO.setBillClearDate(request.getParameter("billClearDate"));
-	  debitedBillTO.setDue(Integer.parseInt(request.getParameter("due")));
-	  debitedBillTO.setDateCount(Integer.parseInt(request.getParameter("dateCount")));
+	  //debitedBillTO.setBillClearDate();
+	  //debitedBillTO.setDue(Integer.parseInt(request.getParameter("due")));
+	  //debitedBillTO.setDateCount(Integer.parseInt(request.getParameter("dateCount")));
 		String billId=debitedBillServices.addDebitedBill(debitedBillTO);
 		if(!StringUtils.isEmptyOrWhitespace(billId)) {
     return "Account Debited successfully";

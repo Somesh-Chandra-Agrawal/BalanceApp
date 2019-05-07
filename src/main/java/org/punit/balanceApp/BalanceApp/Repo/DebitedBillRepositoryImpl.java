@@ -55,18 +55,18 @@ public class DebitedBillRepositoryImpl {
 		List<Bill> postDTOs = query.getResultList();
 		
 		for (Bill pendingFBill : postDTOs) {
-			if (amount > pendingFBill.getDue()) {
+			if (amount >= pendingFBill.getDue()) {
 				pendingFBill.setBillClearDate(cDate);
-				pendingFBill.setDue(0);
 				pendingFBill.setClearFlag("T");
 				Integer dayDiff = getDateDiff(cDate, pendingFBill.getBillDate(), TimeUnit.DAYS);
 				pendingFBill.setDateCount(dayDiff);
+				amount = amount - pendingFBill.getDue();
+				pendingFBill.setDue(0);
 				// call method for Update Bill
 				debitedBillRepository.save(pendingFBill);
-				amount = amount - pendingFBill.getBillAmount();
 			} else {
 				//pendingFBill.setBillClearDate(cDate);
-				Integer due = amount - pendingFBill.getBillAmount();
+				Integer due = pendingFBill.getDue() - amount;
 				pendingFBill.setDue(due);
 				pendingFBill.setClearFlag("F");
 				// call method to update bill
@@ -77,7 +77,7 @@ public class DebitedBillRepositoryImpl {
 	}
 	
 	public static Integer getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
-	    long diffInMillies = date2.getTime() - date1.getTime();
+	    long diffInMillies = date1.getTime() - date2.getTime() ;
 	    return (int) timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
 	}
 }
