@@ -25,7 +25,7 @@
 </head>
 <body>
 	<h1 style="margin-left: 16em;" th:text="${header}"></h1>
-	<div style="margin-left: 43em;" th:text="${successMsg}"></div>
+	<div style="margin-left: 43em;color: crimson;" th:text="${successMsg}"></div>
 	<form action="#" th:action="@{/customer/add-customer}"
 		th:object="${customerTO}" method="POST">
 		<div class="form-group ">

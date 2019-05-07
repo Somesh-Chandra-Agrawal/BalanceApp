@@ -124,5 +124,21 @@ public class CustomerController {
 	      mav.setViewName("home");
 	      return mav;
 	    }
+ 	
+  @GetMapping("/getDetailsPage")
+  public ModelAndView getDetailsPage(WebRequest request) {
+    StringBuilder custId=new StringBuilder();
+      ModelAndView mav = new ModelAndView();
+      if(null!=request.getParameter("custId")) {
+        custId.append(request.getParameter("custId"));
+      }else {
+      custId.append("");
+      }
+      mav.addObject("custId",custId);
+      mav.setViewName("user-info");
+      return mav;
+    }
 
+ 	
+ 	
 }
