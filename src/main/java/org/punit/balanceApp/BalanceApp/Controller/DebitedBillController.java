@@ -30,19 +30,23 @@ public class DebitedBillController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/addBill")
 	public String addDebitedBill(WebRequest request) throws ParseException {
-	  Bill debitedBillTO=new Bill();
-//	  custFNameDebit=brad&custLNameDebit=pitt&billAmount=&billDate=&billClearDate=&billClearDate=&due= custId
-	  debitedBillTO.setCustId(Integer.parseInt(request.getParameter("custId")));
-	  debitedBillTO.setCustFName(request.getParameter("custFNameDebit"));
-	  debitedBillTO.setCustLName(request.getParameter("custLNameDebit"));
-	  debitedBillTO.setBillAmount(Integer.parseInt(request.getParameter("billAmount")));
-	  debitedBillTO.setBillDate(request.getParameter("billDate"));
-	  //debitedBillTO.setBillClearDate();
-	  //debitedBillTO.setDue(Integer.parseInt(request.getParameter("due")));
-	  //debitedBillTO.setDateCount(Integer.parseInt(request.getParameter("dateCount")));
-		String billId=debitedBillServices.addDebitedBill(debitedBillTO);
-		if(!StringUtils.isEmptyOrWhitespace(billId)) {
-    return "Account Debited successfully";
+		Bill debitedBillTO = new Bill();
+        //custFNameDebit=brad&custLNameDebit=pitt&billAmount=&billDate=&billClearDate=&billClearDate=&due= custId
+		debitedBillTO.setCustId(Integer.parseInt(request.getParameter("custId")));
+		debitedBillTO.setCustFName(request.getParameter("custFNameDebit"));
+		debitedBillTO.setCustLName(request.getParameter("custLNameDebit"));
+		debitedBillTO.setBillAmount(Integer.parseInt(request.getParameter("billAmount")));
+		try {
+			debitedBillTO.setBillDate(request.getParameter("billDate"));
+		} catch (ParseException e) {
+			return "Date is not in correct formate please enter in DD-MM-YYYY formate";
+		}
+		// debitedBillTO.setBillClearDate();
+		// debitedBillTO.setDue(Integer.parseInt(request.getParameter("due")));
+		// debitedBillTO.setDateCount(Integer.parseInt(request.getParameter("dateCount")));
+		String billId = debitedBillServices.addDebitedBill(debitedBillTO);
+		if (!StringUtils.isEmptyOrWhitespace(billId)) {
+			return "Account Debited successfully";
 		}
 		return "Something went wrong";
 	}
