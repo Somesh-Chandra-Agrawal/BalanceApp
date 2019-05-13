@@ -11,8 +11,28 @@ public class CustomerDetailTO {
 	private Map<String, List<Bill>> billMap;
 	
 	private Map<String, List<CREDITDETAIL>> cBillMap;
+	
+	private int totalBillAmount;
+	
+	private int totalCBillAmount;
 
 	
+	public int getTotalBillAmount() {
+		return totalBillAmount;
+	}
+
+	public void setTotalBillAmount(int totalBillAmount) {
+		this.totalBillAmount = totalBillAmount;
+	}
+
+	public int getTotalCBillAmount() {
+		return totalCBillAmount;
+	}
+
+	public void setTotalCBillAmount(int totalCBillAmount) {
+		this.totalCBillAmount = totalCBillAmount;
+	}
+
 	public Optional<CustomerTO> getCustomerTO() {
 		return customerTO;
 	}

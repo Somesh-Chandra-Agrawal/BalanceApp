@@ -160,9 +160,21 @@ public class CustomerController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/getCustomerDetails/{custId}")
 	public ResponseEntity<CustomerDetailTO> getCustomerDetailsByCustId(@PathVariable int custId) {
+		
 		Optional<CustomerTO> customerTO = customerServices.getCustomerById(custId);
 		List<Bill> billTOs = debitedBillServices.getAllBillByCustId(custId);
 		List<CREDITDETAIL> cBillTOs = creditedBillServices.getAllCreditedBillByCustId(custId);
+		
+		Integer billAamount = 0;
+		Integer cBillAamount = 0;
+		
+		for (Bill bill : billTOs) {
+			billAamount = billAamount + bill.getBillAmount();
+		}
+		
+		for (CREDITDETAIL cbill : cBillTOs) {
+			cBillAamount = cBillAamount + cbill.getCreditAmount();
+		}
 		
 		CustomerDetailTO customerDetailTO = new CustomerDetailTO();
 		Map<String, List<Bill>> billTOMap = new HashMap<String, List<Bill>>();
@@ -172,6 +184,8 @@ public class CustomerController {
 		
 		customerDetailTO.setCustomerTO(customerTO);
 		customerDetailTO.setBillMap(billTOMap);
+		customerDetailTO.setTotalBillAmount(billAamount);
+		customerDetailTO.setTotalCBillAmount(cBillAamount);
 		customerDetailTO.setcBillMap(cBillTOMap);
 		
 		
