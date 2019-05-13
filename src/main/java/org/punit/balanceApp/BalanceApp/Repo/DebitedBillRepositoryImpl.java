@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.punit.balanceApp.BalanceApp.Data.Bill;
-import org.punit.balanceApp.BalanceApp.Data.CreditedBillTO;
+import org.punit.balanceApp.BalanceApp.Data.CREDITDETAIL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.Modifying;
@@ -45,7 +45,7 @@ public class DebitedBillRepositoryImpl {
 		return true;
 	}
 
-	public void maintainDebitedBill(CreditedBillTO creditedBillTO) {
+	public void maintainDebitedBill(CREDITDETAIL creditedBillTO) {
 		Integer custId = creditedBillTO.getCustId();
 		Integer amount = creditedBillTO.getCreditAmount();
 		Date cDate = creditedBillTO.getCreditDate();

@@ -1,12 +1,19 @@
 package org.punit.balanceApp.BalanceApp.Controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.punit.balanceApp.BalanceApp.Data.Bill;
+import org.punit.balanceApp.BalanceApp.Data.CREDITDETAIL;
+import org.punit.balanceApp.BalanceApp.Data.CustomerDetailTO;
 import org.punit.balanceApp.BalanceApp.Data.CustomerTO;
+import org.punit.balanceApp.BalanceApp.Services.CreditedBillServices;
 import org.punit.balanceApp.BalanceApp.Services.CustomerServices;
+import org.punit.balanceApp.BalanceApp.Services.DebitedBillServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +40,12 @@ public class CustomerController {
 	/** The customer services. */
 	@Autowired
 	CustomerServices customerServices;
+	
+	@Autowired
+	DebitedBillServices debitedBillServices;
+	
+	@Autowired
+	CreditedBillServices creditedBillServices;
 
 	/** The response. */
 	ResponseEntity<CustomerTO> response = null;
@@ -139,6 +152,30 @@ public class CustomerController {
       return mav;
     }
 
- 	
+	/**
+	 * Gets the all customer by cust id.
+	 *
+	 * @param custId the cust id
+	 * @return the all customer by cust id
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/getCustomerDetails/{custId}")
+	public ResponseEntity<CustomerDetailTO> getCustomerDetailsByCustId(@PathVariable int custId) {
+		Optional<CustomerTO> customerTO = customerServices.getCustomerById(custId);
+		List<Bill> billTOs = debitedBillServices.getAllBillByCustId(custId);
+		List<CREDITDETAIL> cBillTOs = creditedBillServices.getAllCreditedBillByCustId(custId);
+		
+		CustomerDetailTO customerDetailTO = new CustomerDetailTO();
+		Map<String, List<Bill>> billTOMap = new HashMap<String, List<Bill>>();
+		Map<String, List<CREDITDETAIL>> cBillTOMap = new HashMap<String, List<CREDITDETAIL>>();
+		billTOMap.put("BILL", billTOs);
+		cBillTOMap.put("CREDITDETAIL", cBillTOs);
+		
+		customerDetailTO.setCustomerTO(customerTO);
+		customerDetailTO.setBillMap(billTOMap);
+		customerDetailTO.setcBillMap(cBillTOMap);
+		
+		
+		return new ResponseEntity<CustomerDetailTO>(customerDetailTO, HttpStatus.OK);
+	}
  	
 }

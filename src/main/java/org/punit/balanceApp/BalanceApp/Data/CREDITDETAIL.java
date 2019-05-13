@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 @Entity(name = "CREDITDETAIL")
-public class CreditedBillTO {
+public class CREDITDETAIL {
 	
 	
 	@Id
@@ -31,10 +31,10 @@ public class CreditedBillTO {
 	@Column(name = "CREDITEDDATE")
 	private Date creditDate;
 	
-	public CreditedBillTO() {
+	public CREDITDETAIL() {
 	}
 	
-	public CreditedBillTO(Integer custId, String custFName, String custLName, Integer creditAmount, Date creditdate) {
+	public CREDITDETAIL(Integer custId, String custFName, String custLName, Integer creditAmount, Date creditdate) {
 		this.custId = custId;
 		this.custFName = custFName;
 		this.custLName = custLName;
@@ -42,7 +42,7 @@ public class CreditedBillTO {
 		this.creditDate = creditdate;
 	}
 	
-	public CreditedBillTO(Integer cBillId, Integer custId, String custFName, String custLName, Integer creditAmount, Date creditdate) {
+	public CREDITDETAIL(Integer cBillId, Integer custId, String custFName, String custLName, Integer creditAmount, Date creditdate) {
 		this.cBillId = cBillId;
 		this.custId = custId;
 		this.custFName = custFName;
