@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.util.Strings;
 import org.punit.balanceApp.BalanceApp.Data.Bill;
 import org.punit.balanceApp.BalanceApp.Data.CREDITDETAIL;
 import org.punit.balanceApp.BalanceApp.Data.CustomerDetailTO;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.util.StringUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -142,29 +144,109 @@ public class CustomerController {
   public ModelAndView getDetailsPage(WebRequest request) {
     StringBuilder custId=new StringBuilder();
       ModelAndView mav = new ModelAndView();
+      
+      String billTable=null;
+      String  creditedBillTable=null;
       if(null!=request.getParameter("custId")) {
         custId.append(request.getParameter("custId"));
       }else {
       custId.append("");
       }
-      mav.addObject("custId",custId);
+      Map<String, CustomerDetailTO> getDetails=getCustomerDetailsByCustId(Integer.parseInt(custId.toString()));
+      CustomerDetailTO  customerDetailTO = getDetails.get("getDetails");
+      Optional<CustomerTO> customerTO = customerDetailTO.getCustomerTO();
+      
+      CustomerTO customer=customerTO.get();
+      if(null!=customerDetailTO) {
+        
+     Map<String, List<Bill>> billsMap= customerDetailTO.getBillMap();
+
+    if (!billsMap.isEmpty()) {
+      List<Bill> bills = billsMap.get("BILL");
+      billTable = createBillsTable(bills);
+      mav.addObject("billTable",billTable);
+    }
+     
+     Map<String, List<CREDITDETAIL>>  creditedBilsMap=customerDetailTO.getcBillMap();
+     
+     if (!creditedBilsMap.isEmpty()) {
+       List<CREDITDETAIL> bills = creditedBilsMap.get("BILL");
+       creditedBillTable = createCreditedBillsTable(bills);
+       mav.addObject("creditedBillTable",creditedBillTable);
+     }
+      mav.addObject("custName",customer.getCustFName()+" "+customer.getCustLName());
+      }else {
+        mav.addObject("msg","Somthing went Wrong!!!");
+      }
       mav.setViewName("user-info");
+      
       return mav;
     }
 
-	/**
+  private String createCreditedBillsTable(List<CREDITDETAIL> bills) {
+    StringBuilder creditedBill = new StringBuilder();
+    creditedBill.append("<table class=\"table\">");
+    creditedBill.append("<caption>List of Created Bills</caption>");
+    creditedBill.append(" <thead><tr>");
+    creditedBill.append(" <th scope=\"col\">ID</th>");
+    creditedBill.append(" <th scope=\"col\">Credited Amount</th>");
+    creditedBill.append(" <th scope=\"col\">Credited Date</th>");
+    creditedBill.append("  </tr></thead><tbody>");
+    for (CREDITDETAIL creditdetail : bills) {
+      creditedBill.append("<tr>");
+      creditedBill.append("<th scope=\"row\">" + creditdetail.getcBillId() + "</th>");
+      creditedBill.append("<td>" + creditdetail.getCreditAmount() + "</td>");
+      creditedBill.append("<td>" + creditdetail.getCreditDate() + "</td>");
+      creditedBill.append("</tr>");
+
+    }
+    creditedBill.append("</tbody></table>");
+
+    return creditedBill.toString();
+  }
+	
+	
+  private String createBillsTable(List<Bill> bills) {
+    
+    StringBuilder dbill=new StringBuilder();
+    dbill.append("<table class=\"table\">");
+    dbill.append("<caption>List of Created Bills</caption>");
+    dbill.append(" <thead><tr>");
+    dbill.append(" <th scope=\"col\">ID</th>");
+    dbill.append(" <th scope=\"col\">Bill Amount</th>");
+    dbill.append(" <th scope=\"col\">Bill Date</th>");
+    dbill.append(" <th scope=\"col\">Clear Flag</th>");
+    dbill.append(" <th scope=\"col\">Clear Date</th>");
+    dbill.append(" <th scope=\"col\">Date Count</th>");
+    dbill.append(" <th scope=\"col\">Due</th>");
+    dbill.append("  </tr></thead><tbody>");
+    for (Bill bill : bills) {
+      dbill.append("<tr>");
+      dbill.append("<th scope=\"row\">" + bill.getBillId() + "</th>");
+      dbill.append("<td>" + bill.getBillAmount()+ "</td>");
+      dbill.append("<td>" + bill.getBillDate()+ "</td>");
+      dbill.append("<td>" + bill.getClearFlag()+ "</td>");
+      dbill.append("<td>" + bill.getBillClearDate()+ "</td>");
+      dbill.append("<td>" + bill.getDateCount()+ "</td>");
+      dbill.append("<td>" + bill.getDue()+ "</td>");
+      dbill.append("</tr>");
+    }
+    dbill.append("</tbody></table>");
+    return dbill.toString();
+  }
+  /**
 	 * Gets the all customer by cust id.
 	 *
 	 * @param custId the cust id
 	 * @return the all customer by cust id
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/getCustomerDetails/{custId}")
-	public ResponseEntity<CustomerDetailTO> getCustomerDetailsByCustId(@PathVariable int custId) {
+	public Map<String, CustomerDetailTO> getCustomerDetailsByCustId(@PathVariable int custId) {
 		
 		Optional<CustomerTO> customerTO = customerServices.getCustomerById(custId);
 		List<Bill> billTOs = debitedBillServices.getAllBillByCustId(custId);
 		List<CREDITDETAIL> cBillTOs = creditedBillServices.getAllCreditedBillByCustId(custId);
 		
+		Map<String, CustomerDetailTO> output=new HashMap<>();
 		Integer billAamount = 0;
 		Integer cBillAamount = 0;
 		
@@ -187,9 +269,11 @@ public class CustomerController {
 		customerDetailTO.setTotalBillAmount(billAamount);
 		customerDetailTO.setTotalCBillAmount(cBillAamount);
 		customerDetailTO.setcBillMap(cBillTOMap);
+		output.put("getDetails", customerDetailTO);
 		
+//		return new ResponseEntity<CustomerDetailTO>(customerDetailTO, HttpStatus.OK);
+		return output;
 		
-		return new ResponseEntity<CustomerDetailTO>(customerDetailTO, HttpStatus.OK);
 	}
  	
 }

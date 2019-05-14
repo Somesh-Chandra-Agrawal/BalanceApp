@@ -26,7 +26,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
-<body>
-   <h1 th:text="'get details of customer Id '+${custId}"></h1>
+<body class="well well-lg jumbotron">
+<div class="col-md-6" th:utext="billTable"></div>
+   
+   <div class="col-md-6" th:utext="creditedBillTable"></div>
+   
 </body>
 </html>   
