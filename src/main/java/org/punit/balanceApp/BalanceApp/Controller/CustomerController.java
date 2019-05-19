@@ -142,50 +142,52 @@ public class CustomerController {
 	    }
  	
   @GetMapping("/getDetailsPage")
-  public ModelAndView getDetailsPage(WebRequest request) {
-    StringBuilder custId=new StringBuilder();
-      ModelAndView mav = new ModelAndView();
-      
-      String billTable=null;
-      String  creditedBillTable=null;
-      if(null!=request.getParameter("custId")) {
-        custId.append(request.getParameter("custId"));
-      }else {
-      custId.append("");
-      }
-      Map<String, CustomerDetailTO> getDetails=getCustomerDetailsByCustId(1);
-      CustomerDetailTO  customerDetailTO = getDetails.get("getDetails");
-      Optional<CustomerTO> customerTO = customerDetailTO.getCustomerTO();
-      
-      CustomerTO customer=customerTO.get();
-      if(null!=customerDetailTO) {
-        
-     Map<String, List<Bill>> billsMap= customerDetailTO.getBillMap();
+	public ModelAndView getDetailsPage(WebRequest request) {
+		StringBuilder custId = new StringBuilder();
+		ModelAndView mav = new ModelAndView();
 
-    if (!billsMap.isEmpty()) {
-      List<Bill> bills = billsMap.get("BILL");
-      mav.addObject("billTable",bills);
-    }
-     
-     Map<String, List<CREDITDETAIL>>  creditedBilsMap=customerDetailTO.getcBillMap();
-     
-     if (!creditedBilsMap.isEmpty()) {
-       List<CREDITDETAIL> bills = creditedBilsMap.get("CREDITDETAIL");
-       mav.addObject("creditedTable",bills);
-     }
-      mav.addObject("custName",customer.getCustFName()+" "+customer.getCustLName());
-      mav.addObject("city",customer.getCity());
-      mav.addObject("Date",new Date());
-      mav.addObject("contactNo",customer.getContact());
-      mav.addObject("Ctotal",customerDetailTO.getTotalCBillAmount());
-      mav.addObject("Btotal",customerDetailTO.getTotalBillAmount());
-      mav.addObject("header","Transaction Details");
-      
-      }
-      mav.setViewName("user-info");
-      
-      return mav;
-    }
+		String billTable = null;
+		String creditedBillTable = null;
+		if (null != request.getParameter("custId")) {
+			custId.append(request.getParameter("custId"));
+		} else {
+			custId.append("");
+		}
+		Map<String, CustomerDetailTO> getDetails = getCustomerDetailsByCustId(Integer.parseInt(custId.toString()));
+		CustomerDetailTO customerDetailTO = getDetails.get("getDetails");
+		Optional<CustomerTO> customerTO = customerDetailTO.getCustomerTO();
+
+		CustomerTO customer = customerTO.get();
+		if (null != customerDetailTO) {
+
+			Map<String, List<Bill>> billsMap = customerDetailTO.getBillMap();
+
+			if (!billsMap.isEmpty()) {
+				List<Bill> bills = billsMap.get("BILL");
+				mav.addObject("billTable", bills);
+			}
+
+			Map<String, List<CREDITDETAIL>> creditedBilsMap = customerDetailTO.getcBillMap();
+
+			if (!creditedBilsMap.isEmpty()) {
+				List<CREDITDETAIL> bills = creditedBilsMap.get("CREDITDETAIL");
+				mav.addObject("creditedTable", bills);
+			}
+			mav.addObject("custName", customer.getCustFName() + " " + customer.getCustLName());
+			mav.addObject("city", customer.getCity());
+			mav.addObject("Date", new Date());
+			mav.addObject("contactNo", customer.getContact());
+			mav.addObject("dueTotal", customerDetailTO.getTotalCBillAmount());
+			mav.addObject("Ctotal", customerDetailTO.getTotalCBillAmount());
+			mav.addObject("Btotal", customerDetailTO.getTotalBillAmount());
+			mav.addObject("duetotal", customerDetailTO.getTotalDue());
+			mav.addObject("header", "Transaction Details");
+
+		}
+		mav.setViewName("user-info");
+
+		return mav;
+	}
 
 	
 	
@@ -204,9 +206,11 @@ public class CustomerController {
 		Map<String, CustomerDetailTO> output=new HashMap<>();
 		Integer billAamount = 0;
 		Integer cBillAamount = 0;
+		Integer dueamount = 0;
 		
 		for (Bill bill : billTOs) {
 			billAamount = billAamount + bill.getBillAmount();
+			dueamount = dueamount + bill.getDue();
 		}
 		
 		for (CREDITDETAIL cbill : cBillTOs) {
@@ -224,6 +228,7 @@ public class CustomerController {
 		customerDetailTO.setTotalBillAmount(billAamount);
 		customerDetailTO.setTotalCBillAmount(cBillAamount);
 		customerDetailTO.setcBillMap(cBillTOMap);
+		customerDetailTO.setTotalDue(dueamount);
 		output.put("getDetails", customerDetailTO);
 		
 //		return new ResponseEntity<CustomerDetailTO>(customerDetailTO, HttpStatus.OK);

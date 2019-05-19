@@ -15,8 +15,28 @@ public class CustomerDetailTO {
 	private int totalBillAmount;
 	
 	private int totalCBillAmount;
+	
+	private int totalBill;
+	
+	public int totalDue;
 
 	
+	public int getTotalBill() {
+		return totalBill;
+	}
+
+	public void setTotalBill(int totalBill) {
+		this.totalBill = totalBill;
+	}
+
+	public int getTotalDue() {
+		return totalDue;
+	}
+
+	public void setTotalDue(int totalDue) {
+		this.totalDue = totalDue;
+	}
+
 	public int getTotalBillAmount() {
 		return totalBillAmount;
 	}
