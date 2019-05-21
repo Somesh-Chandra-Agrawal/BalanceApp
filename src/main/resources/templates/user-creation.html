@@ -24,6 +24,11 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="col-md-6">
+ <a th:href="@{/customer/home}" class="btn btn-info  btn-md btn-rounded">
+          <span class="glyphicon glyphicon-home"></span> Home
+        </a>
+        </div>
 	<h1 style="margin-left: 16em;" th:text="${header}"></h1>
 	<div style="margin-left: 43em;color: crimson;" th:text="${successMsg}"></div>
 	<form action="#" th:action="@{/customer/add-customer}"
