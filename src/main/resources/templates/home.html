@@ -142,44 +142,6 @@
 		</div>
 	</div>
 	<!-- Modal End-->
-	<!-- 	      model spinner implementation -->
-	<div class="modal fade" id="SpinnerModel" role="dialog">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title container text-center">Kripya Dharya
-						Rakhein..</h4>
-				</div>
-				<div class="modal-body">
-
-					<div class="spinner-grow text-primary" role="status">
-						<span class="sr-only">Loading...</span>
-					</div>
-					<div class="spinner-grow text-secondary" role="status">
-						<span class="sr-only">Loading...</span>
-					</div>
-					<div class="spinner-grow text-success" role="status">
-						<span class="sr-only">Loading...</span>
-					</div>
-					<div class="spinner-grow text-danger" role="status">
-						<span class="sr-only">Loading...</span>
-					</div>
-
-				</div>
-
-				<div class="modal-footer">
-					<button id="closeSpinner" type="button" class="btn btn-default"
-						data-dismiss="modal">Close</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<button data-toggle="modal" data-target="#SpinnerModel"
-		class="btn btn-warning" id="spinner">Spinner</button>
 
 
 </body>
@@ -332,26 +294,9 @@ getAllCustomer();
     	
 	}
 	
-	/* function getDetailsPage(){
-		getRowData();
-		
-		var custIDUniversal="";
-		//setTimeout(function(){	spinnner();}, 3000);
-	
-		custIDUniversal=$('#custIDUniversal').val();
-		console.log(custIDUniversal);
-		//alert("custIDUniversal-->>"+custIDUniversal);
-	
-		if(custIDUniversal!=0){
-			  window.location.href= "/BalanceApp/customer/getDetailsPage?custId="+custIDUniversal;
-		}
-		
-	} */
 	
 	
 	function getDetailsPageImproved(custIDUniversal = ''){
-		console.log(custIDUniversal); 
-		//alert("custIDUniversal-->>"+custIDUniversal);
 	
 		if(custIDUniversal!=0){
 			  window.location.href= "/BalanceApp/customer/getDetailsPage?custId="+custIDUniversal;
@@ -367,14 +312,6 @@ getAllCustomer();
 		$('#custIDUniversal').val();
 	}
 	
-	
-// 	Waiting dialogueBox
-function spinnner(){
-	console.log("Spinner called");
-	$('#spinner').click();
-	$('#closeSpinner').click();
-	
-}
 
 	
 	/*]]>*/

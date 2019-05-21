@@ -1,0 +1,8 @@
+.classpath
+.factorypath
+.pmd
+.pmdruleset.xml
+.project
+.settings
+target/
+bin/
