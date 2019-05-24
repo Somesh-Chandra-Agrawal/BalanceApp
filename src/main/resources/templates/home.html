@@ -31,6 +31,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body onload="onLoadEvents()">
+
 	<input id="custIDUniversal" type="hidden">
 
 	<h1>BalanceApp</h1>
@@ -57,12 +58,12 @@
 					<div class="modal-body">
 						<input id="custIdModelData" type="hidden">
 						<div class="col-md-6 form-group">
-							<label>custFName:</label><input type="text" id="custFName"
+							<label>custFName:</label><input type="text" id="custFName" readonly="readonly"
 								name="custFName" class="form-control" />
 						</div>
 
 						<div class="col-md-6 form-group">
-							<label>custLName:</label><input type="text" id="custLName"
+							<label>custLName:</label><input type="text" id="custLName" readonly="readonly"
 								name="custLName" class="form-control" />
 						</div>
 
@@ -107,12 +108,12 @@
 					<div class="modal-body">
 						<input id="custIdDebitModelData" type="hidden">
 						<div class="col-md-6 form-group">
-							<label>custFName:</label><input type="text" id="custFNameDebit"
+							<label>custFName:</label><input type="text" id="custFNameDebit" readonly="readonly"
 								name="custFNameDebit" class="form-control" />
 						</div>
 
 						<div class="col-md-6 form-group">
-							<label>custLName:</label><input type="text" id="custLNameDebit"
+							<label>custLName:</label><input type="text" id="custLNameDebit" readonly="readonly"
 								name="custLNameDebit" class="form-control" />
 						</div>
 
@@ -168,22 +169,22 @@
 
 // 				console.log("Success: ", result[0].custFName);
 // 				console.log("Success: ", result);
-				var dataArr = [];
-				  $.each(result, function (key, value) {
-					  var dataArray = [];
-					  dataArray.push(value.custId);
-				        dataArray.push(value.custFName);
-				        dataArray.push(value.custLName);
-				        dataArray.push(value.city);
-				        dataArray.push(value.state);
-				        dataArray.push(value.contact);
-				        dataArray.push(value.totalDue);
-				        dataArray.push("<div class=\"btn-group\" style=\"margin-left: 6em;\"><button data-toggle=\"modal\" data-target=\"#myModal\" class=\"btn btn-warning\" onclick=\"getRowData(),getClearUnwantedField()\" >Credited Bill</button><button  data-toggle=\"modal\" data-target=\"#myModalDebit\"  class=\"btn btn-danger\" onclick=\"getRowData(),getClearUnwantedField()\"  >Debited Bill</button><button   class=\"btn btn-primary\" onclick=\"getDetailsPageImproved("+value.custId+")\">Get Details</button></div>")
-				        dataArr.push(dataArray);
-				        console.log(dataArray);
+		var dataArr = [];
+		  $.each(result, function (key, value) {
+			  var dataArray = [];
+			  dataArray.push(value.custId);
+		        dataArray.push(value.custFName);
+		        dataArray.push(value.custLName);
+		        dataArray.push(value.city);
+		        dataArray.push(value.state);
+		        dataArray.push(value.contact);
+		        dataArray.push(value.totalDue);
+		        dataArray.push("<div class=\"btn-group\" style=\"margin-left: 6em;\"><button data-toggle=\"modal\" data-target=\"#myModal\" class=\"btn btn-warning\" onclick=\"getRowData("+value.custId+",'"+value.custFName+"','"+value.custLName+"'),getClearUnwantedField();\" >Credited Bill</button><button  data-toggle=\"modal\" data-target=\"#myModalDebit\"  class=\"btn btn-danger\" onclick=\"getRowData("+value.custId+",'"+value.custFName+"','"+value.custLName+"'),getClearUnwantedField()\"  >Debited Bill</button><button   class=\"btn btn-primary\" onclick=\"getDetailsPageImproved("+value.custId+")\">Get Details</button></div>")
+		        dataArr.push(dataArray);
+		        console.log(dataArray);
 				        
-				  });
-				  getTable(dataArr);
+		  });
+		  getTable(dataArr);
 			}
 		});	
 
@@ -195,15 +196,15 @@
 	    $('#CustDatatable').DataTable({
 	    	destroy: true,
 	        data: dataArr,
-	        columns: [
-	        	{ title: "Id" },
-	            { title: "Fist Name" },
-	            { title: "Last Name" },
-	            { title: "city" },
-	            { title: "State" },
-	            { title: "contact" },
-	            { title: "TotalDue" },
-	            { title: "Action" }
+      columns: [
+      	{ title: "Id" },
+          { title: "Fist Name" },
+          { title: "Last Name" },
+          { title: "city" },
+          { title: "State" },
+          { title: "contact" },
+          { title: "TotalDue" },
+          { title: "Action" }
 	        ]
 	    });
 	}
@@ -225,14 +226,11 @@
 			type : "GET",
 			url :urlForBill ,
 			success: function(result){
-// alert("credited bill called");
-// alert(result);
-$('#successMsg').html(result);
-$('#closeModel').click();
-getAllCustomer();
-// 				console.log("Success: ", result[0].custFName);
-// 				console.log("Success: ", result);
-				
+			// alert("credited bill called");
+			// alert(result);
+			$('#successMsg').html(result);
+			$('#closeModel').click();
+			getAllCustomer();
 				        
 				  }
 			});
@@ -248,32 +246,33 @@ getAllCustomer();
 			type : "GET",
 			url :urlForBill ,
 			success: function(result){
-// alert("credited bill called");
-// alert(result);
-$('#successMsg').html(result);
-$('#closeModelDebit').click();
-getAllCustomer();
-// 				console.log("Success: ", result[0].custFName);
-// 				console.log("Success: ", result);
-				
+			// alert("credited bill called");
+			// alert(result);
+			$('#successMsg').html(result);
+			$('#closeModelDebit').click();
+			getAllCustomer();
 				        
 				  }
 			});
 	}
 	
-	function getRowData(){
+	function getRowData(custId,custFname,custLname){
 	console.log("getRowData");
 
-	  var table = $('#CustDatatable').DataTable();
-	    $('#CustDatatable tbody').on('click', 'tr', function () {
-	    	$("#custIdModelData").val(table.row(this).data()[0]);
-	    	$('#custFName').val(table.row(this).data()[1]);
-	    	$('#custLName').val(table.row(this).data()[2]);
-	    	$("#custIdDebitModelData").val(table.row(this).data()[0]);
-	    	$('#custFNameDebit').val(table.row(this).data()[1]);
-	    	$('#custLNameDebit').val(table.row(this).data()[2]);
-	    	$('#custIDUniversal').val(table.row(this).data()[0]);
-	    });
+    	console.log("custId-->>"+custId);
+    	console.log("custFname-->>"+custFname);
+    	console.log("custLname-->>"+custLname);
+	if(custId!=0 && custFname!='' && custLname!=''){
+	    $("#custIdModelData").val(custId+'');
+		$('#custFName').val(custFname+'');
+		$('#custLName').val(custLname+'');
+		$("#custIdDebitModelData").val(custId+'');
+		$('#custFNameDebit').val(custFname+'');
+		$('#custLNameDebit').val(custLname+'');
+		$('#custIDUniversal').val(custId+'');
+	}
+
+
 	}
 	
 	function onLoadEvents(){
@@ -295,7 +294,6 @@ getAllCustomer();
 	}
 	
 	
-	
 	function getDetailsPageImproved(custIDUniversal = ''){
 	
 		if(custIDUniversal!=0){
@@ -303,9 +301,6 @@ getAllCustomer();
 		}
 		
 	}
-	
-	
-	
 	
 	function getuniversalId(){
 		alert("getuniversalId");
