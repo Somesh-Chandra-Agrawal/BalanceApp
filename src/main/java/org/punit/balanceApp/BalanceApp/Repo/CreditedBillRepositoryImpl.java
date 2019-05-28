@@ -17,7 +17,7 @@ public class CreditedBillRepositoryImpl {
 	public List<CREDITDETAIL> getBillsByCustId(int custId) {
 		List<CREDITDETAIL> postDTOs = entityManager.createQuery(
 				"Select new CREDITDETAIL(cBillId, custId, custFName, custLName, creditAmount, creditDate) from CREDITDETAIL where custId="
-						+ custId)
+						+ custId + " Order by creditDate")
 				.getResultList();
 
 		return postDTOs;

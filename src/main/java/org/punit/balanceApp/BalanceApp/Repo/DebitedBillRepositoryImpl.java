@@ -29,7 +29,7 @@ public class DebitedBillRepositoryImpl {
 
 		List<Bill> postDTOs = entityManager.createQuery(
 				"Select new Bill(billId, custId, custFName, custLName, billAmount, billDate, due, clearFlag, billClearDate, dateCount) from Bill where custId="
-						+ custId)
+						+ custId + " Order by billDate")
 				.getResultList();
 
 		return postDTOs;
